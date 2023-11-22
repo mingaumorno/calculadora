@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Calculator</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+
+<body>
+<h1>Calculator</h1>
+
+<input type="text" id="display" readonly>
+<br>
+<div class="button">
+
+
+<button onclick="appendToDisplay('7')">7</button>
+<button onclick="appendToDisplay('8')">8</button>
+<button onclick="appendToDisplay('9')">9</button>
+<button onclick="setOperator('/')">/</button>
+<br>
+<button onclick="appendToDisplay('4')">4</button>
+<button onclick="appendToDisplay('5')">5</button>
+<button onclick="appendToDisplay('6')">6</button>
+<button onclick="setOperator('*')">*</button>
+<br>
+<button onclick="appendToDisplay('1')">1</button>
+<button onclick="appendToDisplay('2')">2</button>
+<button onclick="appendToDisplay('3')">3</button>
+<button onclick="setOperator('-')">-</button>
+<br>
+<button onclick="appendToDisplay('0')">0</button>
+<button onclick="appendToDisplay('.')">.</button>
+<button onclick="calculateResult()">=</button>
+<button onclick="setOperator('+')">+</button>
+<br>
+<button class="c" onclick="clearDisplay()">C</button>
+</div>
+
+
+
+
+
+<script>
+let currentInput = '';
+let operator = '';
+let currentResult = null;
+
+function appendToDisplay(value) {
+  currentInput += value;
+  updateDisplay();
+}
+
+function setOperator(op) {
+  operator = op;
+  currentResult = currentInput;
+  currentInput = '';
+  updateDisplay();
+}
+
+function calculateResult() {
+  if (operator && currentResult !== null && currentInput !== '') {
+    switch (operator) {
+      case '+':
+        currentResult = (parseFloat(currentResult) + parseFloat(currentInput)).toString();
+        break;
+      case '-':
+        currentResult = (parseFloat(currentResult) - parseFloat(currentInput)).toString();
+        break;
+      case '*':
+        currentResult = (parseFloat(currentResult) * parseFloat(currentInput)).toString();
+        break;
+      case '/':
+        currentResult = (parseFloat(currentResult) / parseFloat(currentInput)).toString();
+        break;
+    }
+    currentInput = '';
+    operator = '';
+    updateDisplay();
+  }
+}
+
+function clearDisplay() {
+  currentInput = '';
+  operator = '';
+  currentResult = null;
+  updateDisplay();
+}
+
+function updateDisplay() {
+  document.getElementById('display').value = currentResult !== null ? currentResult + operator + currentInput : currentInput;
+}
+</script>
+
+</body>
+</html>
